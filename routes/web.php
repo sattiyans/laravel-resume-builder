@@ -22,6 +22,4 @@ Route::get('/', [ResumeController::class, 'index'])->name('index');
 Route::get('/resume/{id}', [ResumeController::class, 'view'])->name('resume.profile.view');
 Route::get('/create', [ResumeController::class, 'create'])->name('resume.profile.create');
 Route::post('/store', [ResumeController::class, 'store'])->name('store');
-Route::get('/edit/{id}', [ResumeController::class, 'edit'])->name('edit');
-Route::post('/update', [ResumeController::class, 'update'])->name('update');
 Route::post('/destroy/{id}', [ResumeController::class, 'destroy'])->name('destroy');
