@@ -8,16 +8,18 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('experience_details', function (Blueprint $table) {
+        Schema::create('experiences', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->nullable();
-            $table->string('job')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->string('job_title')->nullable();
             $table->string('organization')->nullable();
-            $table->date('job_start')->nullable();
-            $table->date('job_end')->nullable();
+            $table->date('job_start_date')->nullable();
+            $table->date('job_end_date')->nullable();
             $table->longText('job_description')->nullable();
             $table->timestamps();
         });
@@ -25,9 +27,11 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('experience_details');
+        Schema::dropIfExists('experiences');
     }
 };

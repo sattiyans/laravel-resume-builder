@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResumeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +18,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::get('/create', function () {
-    return view('create');
-});
-
-Route::get('/view/{id}', function () {
-    return view('view');
-});
+Route::get('/', [ResumeController::class, 'index'])->name('index');
+Route::get('/resume/{id}', [ResumeController::class, 'view'])->name('resume.profile.view');
+Route::get('/create', [ResumeController::class, 'create'])->name('resume.profile.create');
+Route::post('/store', [ResumeController::class, 'store'])->name('store');
+Route::get('/edit/{id}', [ResumeController::class, 'edit'])->name('edit');
+Route::post('/update', [ResumeController::class, 'update'])->name('update');
+Route::post('/destroy/{id}', [ResumeController::class, 'destroy'])->name('destroy');

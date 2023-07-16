@@ -1,17 +1,5 @@
-<!doctype html>
-<html lang="en" data-bs-theme="auto">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>Resume Builder</title>
+{{ view('layouts/header')}}
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
-    <link href="{{asset('assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('checkout.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
-  <body class="bg-body-tertiary">
     <div class="container">
     <main>
         <div class="py-5 text-center">
@@ -24,40 +12,57 @@
         </div>
         <div class="mb-3 d-flex align-items-center justify-content-between">
             <h4 class="mb-0">Resume list</h4>
-            <a href="/create" class="btn btn-primary" type="button">Create resume</a>
+            <a href="create" class="btn btn-primary" type="button">Create resume</a>
             </div>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Handle</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>
-        <a class="text-decoration-none p-1" href="#"><i class="fas fa-eye"></i></a>
-        <a class="text-decoration-none p-1" href="#"><i class="fas fa-edit"></i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<table id="user_table" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Title</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $count = 1;
+                                @endphp
+                                @foreach ($users_data as $user)
+                                    <tr>
+                                        <td>{{ $count }}</td>
+                                        <td>{{ $user['personal_info']['profile_title'] }}</td>
+                                        <td>{{ $user['personal_info']['first_name'] }}</td>
+                                        <td>{{ $user['personal_info']['last_name'] }}</td>
+                                        <td>{{ $user['contact_info']['email'] }}</td>
+                                        <td align="center">
+                                            <div class="d-flex flex-row justify-content-around">
+                                                <div class="action-icons">
+                                                    <a target="_blank" class="view_btn" href="{{ route('resume.profile.view', $user['personal_info']['id']) }}" title="View Profile">
+                                                    <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="action-icons">
+                                                    <form action="{{ route('destroy', $user['personal_info']['id']) }}" method="post" class="d-inline">
+                                                    @csrf
+                                                    <a href="javascript::void(0)" onclick="confirm_form_delete(this)"
+                                                        class="del_btn" title="Delete Profile">
+                                                        <i class="fas fa-user-minus text-danger"></i>
+                                                    </a>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $count++;
+                                    @endphp
+                                @endforeach
+                            </tbody>
+                        </table>
 
 
     </main>
+{{ view('layouts/footer')}}
 
-    <footer class="my-5 pt-5 text-body-secondary text-center text-small">
-        <p class="mb-1"><a class="text-decoration-none" target="_blank" href="https://twitter.com/sattiyans">@sattiyans</a></p>
-    </footer>
-    </div>
-
-    <script src="{{asset('assets/dist/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('checkout.js')}}"></script></body>
-</html>
