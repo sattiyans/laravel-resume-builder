@@ -7,48 +7,6 @@
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ url('assets/js/builder.js') }}"></script>
-
-@php
-    
-    /**
-     *  Alert
-     */
-    $message = '';
-    $icon = '';
-    
-    if (!empty($errors->all())) {
-        $icon = 'error';
-        $message = $errors->first();
-    } elseif (session()->has('success')) {
-        $icon = 'success';
-        $message = session()->get('success');
-    } elseif (session()->has('error')) {
-        $icon = 'error';
-        $message = session()->get('error');
-    } elseif (!empty($success)) {
-        $icon = 'success';
-        $message = $success;
-    }
-    
-@endphp
-
-<script>
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'center',
-        showConfirmButton: false,
-        timer: 3000
-    });
-    var message = '{{ $message }}';
-    var icon = '{{ $icon }}';
-    if (message.length > 0) {
-        Toast.fire({
-            icon: icon,
-            title: message
-        });
-    }
-</script>
-
 <script>
     // Delete Confirmation
     function confirm_form_delete(element) {
